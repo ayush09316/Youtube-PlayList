@@ -1,5 +1,9 @@
+
+import { options } from '@/app/api/auth/[...nextauth]/options';
 import { getPlayList } from '@/utils/youtube'
+import { getServerSession } from 'next-auth';
 import Image from 'next/image';
+
 import Link from 'next/link';
 
 const timeSince = (timestamp:any) => {
@@ -10,7 +14,10 @@ return formattedDate;
 
 
 const Videos = async () => {
-    const data= await getPlayList();
+  const session= await getServerSession(options) as { token: string };
+  
+  
+    const data= await getPlayList(session?.token);
   
   return (
     <div className='m-10'>
