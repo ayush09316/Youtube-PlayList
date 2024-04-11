@@ -9,6 +9,7 @@ export const options: NextAuthOptions = {
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
             authorization: {
                 params: {
+                    callbackUrl: "/",
                     scope: 'https://www.googleapis.com/auth/youtube.readonly',
                     access_type: 'offline',
                     response_type: 'code',
@@ -32,9 +33,7 @@ export const options: NextAuthOptions = {
                 }
             },
             async authorize(credentials) {
-                // This is where you need to retrieve user data 
-                // to verify with credentials
-                // Docs: https://next-auth.js.org/configuration/providers/credentials
+             
                 const user = { id: "42", name: "Dave", password: "nextauth" }
 
                 if (credentials?.username === user.name && credentials?.password === user.password) {
